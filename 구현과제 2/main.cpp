@@ -97,13 +97,16 @@ void program() {
     bool has_declaration = false;
     bool has_statement = false;
 
+    //아무것도 입력되지 않은 경우의 처리.
+    if(tokens.empty()) return;
+
     while (token_pos < tokens.size()) {
         string token = get_token();
         if(token == "int") {
             token_pos--;
             declaration();
             if (error_occur == 1) {
-                cout << "syntax error!!\n";
+                cout << "Syntax Error!!\n";
                 return;
             }
             has_declaration = true;
@@ -122,18 +125,18 @@ void program() {
          token_pos--;
          statement();
         if (error_occur == 1) {
-            cout << "syntax error!!\n";
+            cout << "Syntax Error!!\n";
             return;
         }
         else if (error_occur == 2) {
-            cout << "division error\n";
+            cout << "Division Error!!\n";
             return;
         }
          has_statement = true;
     }
 
     if (!has_declaration && !has_statement) {
-        cout << "syntax error!!\n";
+        cout << "Syntax Error!!\n";
         return;
     }
 
@@ -154,7 +157,7 @@ void program() {
 
 }
 
-// <declaration> → <type> <var> ;
+// <declaration> → <type> <var> ;int a ; int b ; a = 1 ; b = 2 ; print == a + b * ( b - a * b ) a + b ;
 void declaration() {
     type();
     string var_name = var();
@@ -212,8 +215,6 @@ void statement() {
         }while(true);
 
     }
-
-
     else {
         token_pos --;
         string variable = var();
